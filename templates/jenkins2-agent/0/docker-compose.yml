@@ -1,0 +1,16 @@
+swarm-clients:
+  image: "index.tenxcloud.com/zhongjianxin/jenkins-agent:v1.0"
+  labels:
+    io.rancher.container.hostname_override: container_name
+  external_links:
+    - "${jenkins_service}:jenkins-primary"
+  environment:
+    JENKINS_PASS: "${jenkins_pass}"
+    JENKINS_USER: "${jenkins_user}"
+    SWARM_EXECUTORS: "${swarm_executors}"
+  volumes:
+    - '/workspace:/workspace'
+    - '/var/run/docker.sock:/var/run/docker.sock'
+    - '/var/jenkins_home/workspace:/var/jenkins_home/workspace'
+    - '/tmp:/tmp'
+    - '/home/rancher/.m2/repository:/root/.m2/repository'
